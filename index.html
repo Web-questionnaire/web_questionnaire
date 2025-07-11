@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>生活のしやすさに関する質問票</title>
+    <title>web問診アプリ</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.rawgit.com/jeromeetienne/jquery-qrcode/master/src/qrcode.js"></script>
@@ -14,18 +14,20 @@
     <div class="container">
         <!-- 開始画面 -->
         <div class="start-screen" id="startScreen">
-            <h2>生活のしやすさに関する質問票</h2>
-            <p class="intro-message">この度はアプリでの問診にご協力くださいましてありがとうございます。<br>
-            これは生活の中で患者さんやご家族が感じるつらさを早期に把握し、<br>必要に応じて専門スタッフがサポートするための質問票です。<br>
-            以下のボタンを押して、回答を開始してください。</p>
+            <h2>放射線治療 問診アプリ</h2>
+            <p class="intro-message">この度はアプリでの問診にご協力くださいましてありがとうございます。<br>以下のボタンを押して、回答を開始してください。</p>
             <div class="button-container">
                 <button id="startButton">回答開始</button>
+            </div>
+            <p class="procedure-message">登録メールアドレスを変更したい場合や、アンケートへの参加をやめたい場合には、下のボタンから進んでください。</p>
+            <div class="button-container">
+                <button id="procedureButton">各種お手続き</button>
             </div>
         </div>
         
         <div id="chatInterface" style="display: none;">
             <div class="chat-header">
-                生活のしやすさに関する質問票
+                放射線治療 問診アプリ
             </div>
             <div class="chat-messages" id="chatMessages">
                 <!-- メッセージはここに動的に追加されます -->
@@ -33,13 +35,75 @@
         </div>
         
         <div class="result-section" id="resultSection" style="display: none;">
-            <h2>回答結果</h2>
+            <h2>ご回答結果</h2>
             <div class="result-message" id="resultMessage"></div>
             <div class="mail-container" id="mailContainer"></div>
             <div id="qrcode"></div>
             <div id="resultSummary" style="display: none;"></div>
         </div>
+
+        <!-- PSA入力フォーム -->
+        <div class="psa-section" id="psaSection" style="display: none;">
+            <h2>PSA値の入力</h2>
+            <p class="psa-message">直近3回分のPSA検査値をご入力ください<br>（前回問診時にご入力済みの分についてはご入力不要です）</p>
+            
+            <div class="psa-form">
+                <!-- PSA入力フォーム1 -->
+                <div class="psa-input-group">
+                    <div class="psa-date-input">
+                        <label for="psaDate1">検査日 1</label>
+                        <input type="date" id="psaDate1" name="psaDate1">
+                    </div>
+                    <div class="psa-value-input">
+                        <label for="psaValue1">PSA値 1 (ng/mL)</label>
+                        <input type="number" id="psaValue1" name="psaValue1" step="0.01" min="0">
+                    </div>
+                </div>
+
+                <!-- PSA入力フォーム2 -->
+                <div class="psa-input-group">
+                    <div class="psa-date-input">
+                        <label for="psaDate2">検査日 2</label>
+                        <input type="date" id="psaDate2" name="psaDate2">
+                    </div>
+                    <div class="psa-value-input">
+                        <label for="psaValue2">PSA値 2 (ng/mL)</label>
+                        <input type="number" id="psaValue2" name="psaValue2" step="0.01" min="0">
+                    </div>
+                </div>
+
+                <!-- PSA入力フォーム3 -->
+                <div class="psa-input-group">
+                    <div class="psa-date-input">
+                        <label for="psaDate3">検査日 3</label>
+                        <input type="date" id="psaDate3" name="psaDate3">
+                    </div>
+                    <div class="psa-value-input">
+                        <label for="psaValue3">PSA値 3 (ng/mL)</label>
+                        <input type="number" id="psaValue3" name="psaValue3" step="0.01" min="0">
+                    </div>
+                </div>
+                
+                <!-- セパレータと診察券番号入力の見出し -->
+                <div class="section-separator">
+                    <h3>診察券番号の入力</h3>
+                    <p class="section-description">診察券番号をご入力ください</p>
+                </div>
+
+                <!-- 診察券番号入力フォーム -->
+                <div class="psa-input-group">
+                    <div class="psa-date-input">
+                        <label for="psaPatientId">診察券番号</label>
+                        <input type="text" id="psaPatientId" name="psaPatientId" pattern="[0-9-]+" inputmode="numeric" placeholder="半角数字（例：123456）">
+                    </div>
+                </div>
+            </div>
+
+            <div class="psa-submit">
+                <button id="psaSubmitButton" class="submit-button">確定（メール送信）</button>
+            </div>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
-</html> 
+</html>
